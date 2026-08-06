@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    --color-background: 248 250 252;
+    --color-surface: 255 255 255;
+    --color-border: 226 232 240;
+    --color-foreground: 15 23 42;
+    --color-muted: 100 116 139;
+    --color-primary: 37 99 235;
+    --color-primary-foreground: 255 255 255;
+    --color-secondary: 124 58 237;
+    --color-secondary-foreground: 255 255 255;
+    --color-signal: 5 150 105;
+
+    --glow-1: rgba(37, 99, 235, 0.08);
+    --glow-2: rgba(124, 58, 237, 0.06);
+    --glass-bg: rgba(15, 23, 42, 0.03);
+    --glass-border: rgba(15, 23, 42, 0.08);
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --color-background: 3 7 18;
+    --color-surface: 10 15 28;
+    --color-border: 30 41 59;
+    --color-foreground: 229 231 235;
+    --color-muted: 139 149 168;
+    --color-primary: 59 130 246;
+    --color-primary-foreground: 248 250 255;
+    --color-secondary: 139 92 246;
+    --color-secondary-foreground: 248 250 255;
+    --color-signal: 52 211 153;
+
+    --glow-1: rgba(59, 130, 246, 0.12);
+    --glow-2: rgba(139, 92, 246, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Visible keyboard focus everywhere — this is not optional decoration. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-grid-glow {
+    background-image:
+      radial-gradient(circle at 20% 20%, var(--glow-1), transparent 40%),
+      radial-gradient(circle at 80% 0%, var(--glow-2), transparent 40%);
+  }
+}
