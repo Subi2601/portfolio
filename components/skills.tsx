@@ -9,7 +9,7 @@ export function Skills() {
       <SectionHeading
         eyebrow="Skills"
         title="Tools I reach for, grouped by what they're for."
-        description="No proficiency bars — a percentage on a skill chip is a number nobody can actually back up in an interview. These are the tools shipped in production, grouped by role."
+        
       />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
