@@ -5,7 +5,8 @@ import { About } from "@/components/about";
 import { Skills } from "@/components/skills";
 import { Achievements } from "@/components/achievements";
 import { Experience } from "@/components/experience";
-import { Projects } from "@/components/projects";
+import { ClientProjects } from "@/components/client-projects";
+import { PersonalProjects } from "@/components/personal-projects";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 import { BackToTop } from "@/components/back-to-top";
@@ -21,7 +22,8 @@ export default function Home() {
         <Skills />
         <Achievements />
         <Experience />
-        <Projects />
+        <ClientProjects />
+        <PersonalProjects />
         <Contact />
       </main>
       <Footer />

@@ -65,7 +65,7 @@ export function Hero() {
         >
           <Button
             onClick={() =>
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
+              document.querySelector("#client-projects")?.scrollIntoView({ behavior: "smooth" })
             }
           >
             View Projects

@@ -27,7 +27,7 @@ export type SkillGroup = {
 export const skillGroups: SkillGroup[] = [
   {
     category: "Backend",
-    skills: ["FastAPI", "Django", "DRF", "Flask", "REST APIs", "OpenAPI / Swagger"],
+    skills: ["Python", "FastAPI", "Django", "DRF", "Flask", "REST APIs", "OpenAPI / Swagger"],
   },
   {
     category: "Databases",
@@ -39,16 +39,16 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: "AI / Data",
-    skills: ["Claude API", "Prompt Engineering", "Pandas", "NumPy", "OCR", "Web Scraping"],
+    skills: ["Claude", "Prompt Techniques", "Pandas", "NumPy", "OCR", "n8n", "LLM-Basics", "RAG-Basics", "Ollama"],
   },
   {
     category: "Auth & Security",
-    skills: ["JWT", "OAuth2", "RBAC"],
+    skills: ["JWT", "RBAC"],
   },
-  {
-    category: "Cloud & DevOps",
-    skills: ["AWS Lambda", "AWS S3", "Docker", "Nginx", "CI/CD", "Linux"],
-  },
+  // {
+  //   category: "Cloud & DevOps",
+  //   skills: ["AWS Lambda", "AWS S3", "Docker", "Nginx", "CI/CD", "Linux"],
+  // },
 ];
 
 export type ExperienceEntry = {
@@ -106,7 +106,7 @@ export const experience: ExperienceEntry[] = [
   },
 ];
 
-export type Project = {
+export type ClientProject = {
   title: string;
   type: string;
   stack: string[];
@@ -116,10 +116,10 @@ export type Project = {
   demo?: string;
 };
 
-export const projects: Project[] = [
+export const clientProjects: ClientProject[] = [
   {
     title: "Vehicle Access Management System (TESS)",
-    type: "Enterprise · Client Work",
+    type: "Enterprise",
     stack: ["FastAPI", "PostgreSQL", "HikCentral OpenAPI", "RFID/UHF", "RBAC"],
     description:
       "Enterprise vehicle access platform managing 500+ vehicles across a barrier-gate network, with automated RFID/UHF tag registration and role-based access for contractors, employees, and visitors.",
@@ -127,26 +127,82 @@ export const projects: Project[] = [
   },
   {
     title: "AI Label Validation Platform",
-    type: "Production · Client Work",
+    type: "Production",
     stack: ["FastAPI", "Claude API", "OCR", "Pandas"],
     description:
       "Embedded the Claude API into a FastAPI service for automated document validation — an Excel-to-PDF comparison engine that catches label/artwork discrepancies before they ship.",
     outcomes: ["~60% less manual QA effort", "40% faster discrepancy detection"],
   },
   {
-    title: "AI Diet Recommendation System",
-    type: "Personal / Freelance Project",
-    stack: ["Python", "FastAPI", "LLM Prompting", "PDF Generation"],
-    description:
-      "An AI-assisted diet planning app built for a gym: clients submit their stats and goals, an LLM drafts a plan, a trainer reviews and approves it, and the client receives an exported PDF.",
-    outcomes: ["End-to-end AI → human-review workflow", "Automated PDF export"],
-  },
-  {
     title: "Wallet & Referral Platform",
-    type: "Enterprise · Client Work",
+    type: "Enterprise",
     stack: ["FastAPI", "PostgreSQL", "Socket.IO", "Cron"],
     description:
       "Backend for a financial wallet system: tree-structured referral accounts, real-time balance dashboards, and fully automated commission payouts run on schedule.",
     outcomes: ["50,000+ transactions supported", "99.9% uptime", "Automated payouts"],
+  },
+];
+
+export type PersonalProject = {
+  title: string;
+  stack: string[];
+  description: string;
+  faqs: { question: string; answer: string }[];
+  github?: string;
+  demo?: string;
+  sampleUrl?: string;
+  sampleLabel?: string;
+};
+
+export const personalProjects: PersonalProject[] = [
+  {
+    title: "AI Diet Recommendation System",
+    stack: ["Python", "FastAPI", "LLM Prompting", "PDF Generation"],
+    description:
+      "An AI-assisted diet planning app built for a gym: clients submit their stats and goals, an LLM drafts a plan, a trainer reviews and modifies it as needed, and the client receives an exported PDF.",
+    sampleUrl: "/samples/diet-plan-sample.pdf",
+    sampleLabel: "View Sample Diet Plan",
+    faqs: [
+      {
+        question: "Why did I build this?",
+        answer:
+          "The gym's trainers were writing every diet plan by hand — same structure, different numbers, every time. I wanted an LLM to draft the first version from the client's stats and goals, so trainers could spend their time reviewing and personalizing instead of writing from scratch.",
+      },
+      {
+        question: "What was the hardest part?",
+        answer:
+          "Keeping a human in the loop without slowing things down. The AI draft had to land in a format a trainer could actually review and edit quickly, then flow straight into a clean PDF — not a wall of text that needed reformatting before anyone could use it.",
+      },
+      {
+        question: "What did it achieve?",
+        answer:
+          "An end-to-end flow: client submits stats and goals, an LLM drafts the plan, a trainer reviews and modifies it as needed, and the client gets a formatted PDF automatically — no manual copy-pasting or formatting on the trainer's end.",
+      },
+    ],
+  },
+  {
+    title: "AI Job Search & Screening Automation",
+    stack: ["n8n", "Adzuna API", "Google Gemini", "Automation"],
+    description:
+      "An n8n pipeline that pulls fresh job listings on a schedule, scores each one against my skills with an LLM, and emails me a ranked digest — so I only spend time on roles that are actually a fit.",
+    sampleUrl: "/samples/jobsearch_op.png",
+    sampleLabel: "View Sample Output",
+    faqs: [
+      {
+        question: "What does it do, and why did I build it?",
+        answer:
+          "It's an end-to-end job discovery and screening automation. It runs on a schedule, pulls fresh listings from multiple search queries, scores each one against my resume and skills with an LLM, and delivers a ranked digest by email. I built it so I'd only spend time reviewing and applying to roles that are actually a fit, instead of manually browsing job boards every day.",
+      },
+      {
+        question: "How does the matching actually work?",
+        answer:
+          "Listings are sourced via the Adzuna API, with parallel queries covering Software Engineer and AI/GenAI roles across two location filters — Coimbatore-based and Remote. Results are merged and deduplicated, then each listing is passed to Google Gemini with a custom prompt encoding my skill profile (Python, FastAPI, Django, backend stack, GenAI/LLM tooling). The model returns a Fit Score (0–100), matched vs. missing skills, required experience, company type/size, a Target/Practice classification, and a one-line reasoning for the score.",
+      },
+      {
+        question: "What did it actually achieve?",
+        answer:
+          "It runs automatically 3x a day, screening ~20–30 listings per run and surfacing ~5–8 high-fit \"Target\" matches after AI filtering. That's cut my manual job-search browsing from ~45–60 minutes a day down to a 5-minute review of an already-sorted, formatted digest ranked by Fit Score.",
+      },
+    ],
   },
 ];
